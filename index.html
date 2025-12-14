@@ -2,12 +2,12 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>الدرس الثاني | نهر النيل شريان الحياة</title>
+<title>الدرس الثاني | رحلة في قلب إفريقيا</title>
 
 <style>
 body{
   font-family:Tahoma;
-  background:linear-gradient(#2193b0,#6dd5ed);
+  background:linear-gradient(#8360c3,#2ebf91);
   direction:rtl;
   text-align:center;
 }
@@ -24,7 +24,7 @@ button{
   margin:6px 0;
   border:none;
   border-radius:10px;
-  background:#2193b0;
+  background:#2ebf91;
   color:#fff;
   font-size:16px;
   cursor:pointer;
@@ -33,18 +33,18 @@ button{
   margin:10px 0;
   font-weight:bold;
 }
-.cup{
+.shield{
   display:none;
   margin-top:15px;
   font-size:22px;
-  color:#27ae60;
+  color:#8e44ad;
 }
 </style>
 </head>
 
 <body>
 <div class="container">
-  <h2>🌊 الدرس الثاني: نهر النيل شريان الحياة</h2>
+  <h2>🗺️ الدرس الثاني: رحلة في قلب إفريقيا – مظاهر السطح</h2>
   <p>أجب عن الأسئلة – لديك 5 محاولات يوميًا</p>
 
   <div class="status">
@@ -55,30 +55,31 @@ button{
   <h3 id="question"></h3>
   <div id="answers"></div>
 
-  <div class="cup" id="cup">🏆 ممتاز! أكملت درس نهر النيل</div>
+  <div class="shield" id="shield">🛡️ أحسنت! حصلت على درع المستكشف الإفريقي</div>
 </div>
 
 <script>
 const questions = [
- {q:"لماذا قامت الحضارة المصرية القديمة على نهر النيل؟",
-  a:["لأنه مصدر الماء والزراعة","لأنه نهر قصير","لبرودة مياهه"],c:0},
- {q:"في أي اتجاه يجري نهر النيل؟",
-  a:["من الجنوب إلى الشمال","من الشمال إلى الجنوب","في دائرة"],c:0},
- {q:"ما المصدر الرئيسي لنهر النيل؟",
-  a:["بحيرة فيكتوريا","البحر المتوسط","المحيط الأطلسي"],c:0},
- {q:"لماذا كان الفيضان مهمًا قديمًا؟",
-  a:["يزيد خصوبة التربة","يقلل الزراعة","يمنع الحياة"],c:0},
- {q:"ما أطول نهر في العالم؟",
-  a:["الأمازون","النيل","الفرات"],c:1}
+ {q:"ما المظهر السائد لسطح إفريقيا؟",
+  a:["الهضاب","الأنهار الجليدية","السهول القطبية"],c:0},
+ {q:"من أشهر هضاب إفريقيا؟",
+  a:["هضبة الحبشة","هضبة التبت","هضبة الأناضول"],c:0},
+ {q:"أين تنتشر السهول في إفريقيا؟",
+  a:["حول الأنهار","في القطب","وسط المحيط"],c:0},
+ {q:"أين تتركز الجبال في إفريقيا؟",
+  a:["شرق إفريقيا","غرب أوروبا","شمال آسيا"],c:0},
+ {q:"لماذا تُعد الهضاب مهمة في إفريقيا؟",
+  a:["مصادر للأنهار","تمنع الزراعة","تقلل الأمطار"],c:0}
 ];
 
+// نظام المحاولات اليومية
 const today = new Date().toDateString();
-if(localStorage.getItem("lesson2Day") !== today){
-  localStorage.setItem("lesson2Day", today);
-  localStorage.setItem("lesson2Tries", 5);
+if(localStorage.getItem("lesson3Day") !== today){
+  localStorage.setItem("lesson3Day", today);
+  localStorage.setItem("lesson3Tries", 5);
 }
 
-let tries = Number(localStorage.getItem("lesson2Tries"));
+let tries = Number(localStorage.getItem("lesson3Tries"));
 let score = 0;
 let index = 0;
 
@@ -86,12 +87,14 @@ document.getElementById("tries").innerText = tries;
 
 function loadQuestion(){
   if(index >= questions.length){
-    document.getElementById("cup").style.display = "block";
+    document.getElementById("shield").style.display = "block";
     return;
   }
+
   document.getElementById("question").innerText = questions[index].q;
   const div = document.getElementById("answers");
   div.innerHTML = "";
+
   questions[index].a.forEach((ans,i)=>{
     const btn = document.createElement("button");
     btn.innerText = ans;
@@ -105,6 +108,7 @@ function checkAnswer(i){
     alert("انتهت محاولات اليوم");
     return;
   }
+
   if(i === questions[index].c){
     score += 10;
     index++;
@@ -112,7 +116,7 @@ function checkAnswer(i){
     loadQuestion();
   }else{
     tries--;
-    localStorage.setItem("lesson2Tries", tries);
+    localStorage.setItem("lesson3Tries", tries);
     document.getElementById("tries").innerText = tries;
   }
 }
