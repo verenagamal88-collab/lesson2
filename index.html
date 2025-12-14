@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>الدرس الثاني | نهر النيل شريان الحياة</title>
+
+<style>
+body{
+  font-family:Tahoma;
+  background:linear-gradient(#2193b0,#6dd5ed);
+  direction:rtl;
+  text-align:center;
+}
+.container{
+  max-width:700px;
+  margin:30px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:15px;
+}
+button{
+  width:100%;
+  padding:12px;
+  margin:6px 0;
+  border:none;
+  border-radius:10px;
+  background:#2193b0;
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+.status{
+  margin:10px 0;
+  font-weight:bold;
+}
+.cup{
+  display:none;
+  margin-top:15px;
+  font-size:22px;
+  color:#27ae60;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h2>🌊 الدرس الثاني: نهر النيل شريان الحياة</h2>
+  <p>أجب عن الأسئلة – لديك 5 محاولات يوميًا</p>
+
+  <div class="status">
+    ⭐ النقاط: <span id="score">0</span> |
+    ❤️ المحاولات: <span id="tries">5</span>
+  </div>
+
+  <h3 id="question"></h3>
+  <div id="answers"></div>
+
+  <div class="cup" id="cup">🏆 ممتاز! أكملت درس نهر النيل</div>
+</div>
+
+<script>
+const questions = [
+ {q:"لماذا قامت الحضارة المصرية القديمة على نهر النيل؟",
+  a:["لأنه مصدر الماء والزراعة","لأنه نهر قصير","لبرودة مياهه"],c:0},
+ {q:"في أي اتجاه يجري نهر النيل؟",
+  a:["من الجنوب إلى الشمال","من الشمال إلى الجنوب","في دائرة"],c:0},
+ {q:"ما المصدر الرئيسي لنهر النيل؟",
+  a:["بحيرة فيكتوريا","البحر المتوسط","المحيط الأطلسي"],c:0},
+ {q:"لماذا كان الفيضان مهمًا قديمًا؟",
+  a:["يزيد خصوبة التربة","يقلل الزراعة","يمنع الحياة"],c:0},
+ {q:"ما أطول نهر في العالم؟",
+  a:["الأمازون","النيل","الفرات"],c:1}
+];
+
+const today = new Date().toDateString();
+if(localStorage.getItem("lesson2Day") !== today){
+  localStorage.setItem("lesson2Day", today);
+  localStorage.setItem("lesson2Tries", 5);
+}
+
+let tries = Number(localStorage.getItem("lesson2Tries"));
+let score = 0;
+let index = 0;
+
+document.getElementById("tries").innerText = tries;
+
+function loadQuestion(){
+  if(index >= questions.length){
+    document.getElementById("cup").style.display = "block";
+    return;
+  }
+  document.getElementById("question").innerText = questions[index].q;
+  const div = document.getElementById("answers");
+  div.innerHTML = "";
+  questions[index].a.forEach((ans,i)=>{
+    const btn = document.createElement("button");
+    btn.innerText = ans;
+    btn.onclick = ()=>checkAnswer(i);
+    div.appendChild(btn);
+  });
+}
+
+function checkAnswer(i){
+  if(tries <= 0){
+    alert("انتهت محاولات اليوم");
+    return;
+  }
+  if(i === questions[index].c){
+    score += 10;
+    index++;
+    document.getElementById("score").innerText = score;
+    loadQuestion();
+  }else{
+    tries--;
+    localStorage.setItem("lesson2Tries", tries);
+    document.getElementById("tries").innerText = tries;
+  }
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
